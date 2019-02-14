@@ -1,7 +1,8 @@
 #!/usr/bin/perl
 
-# miRDeep2 install perl script
+# miRDeep2 quantifier perl script
 # Copyright (C) 2009 - 2012, 2014 - 2017, 2019  Sebastian Mackowiak
+# Copyright (C) 2019  Marcel Schilling
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -430,6 +431,7 @@ sub read_stats{
 	my $count;
 	my %k2;
 	my $total;
+	my %k22;
 
 	open IN,"$f1" or die "No reads file in fasta format given\n";
 	while(<IN>){
@@ -438,12 +440,12 @@ sub read_stats{
 			$hash{$1} = 1;
 			$count+=$3;
 			$k2{$2}+=$3;
+			$k22{$2} = 0;
 		}
 	}
 	close IN;
 	my %hash2;
-	my $count2;
-	my %k22;
+	my $count2 = 0;
 
 	print STDERR "Mapping statistics\n";
 	open IN, "$f2" or die "No mapping file given\n";
